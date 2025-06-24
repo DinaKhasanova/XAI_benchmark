@@ -1,0 +1,58 @@
+char2idx:
+  '#': 12
+  '%': 13
+  (: 15
+  ): 41
+  +: 8
+  '-': 24
+  /: 4
+  '0': 45
+  '1': 10
+  '2': 36
+  '3': 46
+  '4': 7
+  '5': 17
+  '6': 9
+  '7': 21
+  '8': 30
+  '9': 44
+  <EOS>: 2
+  <PAD>: 0
+  <SOS>: 1
+  <UNK>: 3
+  '=': 20
+  '@': 28
+  A: 14
+  B: 43
+  C: 16
+  F: 35
+  H: 23
+  I: 33
+  N: 27
+  O: 31
+  P: 11
+  S: 42
+  T: 25
+  '[': 37
+  \: 18
+  ']': 34
+  c: 22
+  e: 5
+  g: 32
+  i: 39
+  l: 19
+  n: 40
+  o: 26
+  r: 38
+  s: 6
+  t: 29
+dimension_of_feedforward: 2048
+dropout: 0.1
+embedding_dimension: 64
+learning_rate: 0.001
+maximum_input_sequence_length: 202
+maximum_target_sequence_length: 203
+norm_first: true
+number_of_decoder_layers: 3
+number_of_encoder_layers: 3
+number_of_heads: 8
