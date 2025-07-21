@@ -1,6 +1,6 @@
-# Training data privacy assessment for molecular property prediction
+# Evaluating the Trustworthiness of XAI Methods for Molecular Properties
 
-Python package to assess how much information somebody can deduct from a neural network trained on some (confidential) training data for molecular property prediction.
+A Python package for analyzing the consistency and robustness of explainable AI methods in molecular property prediction models.
 
 ## Getting Started
 
