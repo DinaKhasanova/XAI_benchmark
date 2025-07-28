@@ -1,0 +1,13 @@
+command: train
+dataset: file
+dataset_path:
+- /home/dina/molprivacy/src/moreno/data/ames_clean.csv
+hyperparameter_optimization_time: 600
+representations:
+- transformer_matrix
+result_folder: null
+save_csv_in_results: true
+split:
+- 0.7
+- 0.1
+- 0.2
