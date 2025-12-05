@@ -8,10 +8,9 @@ from toxicity.config import Config
 import numpy as np
 import toxicity.custom_representation
 
-# Updated main function with Literal for specific choices
 def main(
     task: Literal["train", "download"],
-    dataset: Literal["ames", "herg", "del", "bbb", "file"] = "ames",
+    dataset: Literal["ames", "file"] = "ames",
     split: Optional[List[float]] = None,
     representations: Optional[
         List[
@@ -37,7 +36,7 @@ def main(
     Main function to handle training and dataset preparation with specific options.
 
     :param task: The task to execute, either 'train' or 'download'
-    :param dataset: The dataset to use for training. Choices: 'ames', 'herg', 'bbb', 'file'
+    :param dataset: The dataset to use for training. Choices: 'ames', 'file'
     :param split: List of three floats representing the dataset split proportions for train/validation/test
     :param representations: List of representations to test. Choices: 'ECFP4', 'ECFP6', 'MACCS', 'graph', 'rdkit', 'transformer_vector', 'transformer_matrix'
     :param hyperparameter_optimization_time: Time in seconds to search for hyperparameters for each representation.
@@ -166,5 +165,5 @@ if __name__ == "__main__":
         dataset="file",
         representations=["transformer_matrix"],
         hyperparameter_optimization_time=600,
-        dataset_path=["/home/dina/molprivacy/src/moreno/data/ames_clean.csv"]
+        dataset_path=["/data/ames_clean.csv"]
 )

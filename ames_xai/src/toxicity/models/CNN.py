@@ -170,7 +170,7 @@ class CNNLightning(L.LightningModule):
         y_hat_rounded = torch.round(torch.sigmoid(y_hat))
         accuracy = torch.sum(y_hat_rounded == y) / len(y)
         self.log("test_accuracy", accuracy)
-        return y_hat, y  # (batch_size), (batch_size), for AUC ROC curve(TODO)
+        return y_hat, y  
 
     def configure_optimizers(self):
         optimizer = torch.optim.Adam(

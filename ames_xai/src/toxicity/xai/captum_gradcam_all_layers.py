@@ -16,12 +16,12 @@ def calculate_grad_cam(model, test_loader, conv_layer, device="cuda", save_path=
         inputs = inputs.to(device)
 
         for i in range(inputs.size(0)):
-            input_tensor = inputs[i].unsqueeze(0)  # [1, 1, seq_len, emb_dim]
+            input_tensor = inputs[i].unsqueeze(0)
             input_tensor.requires_grad = True
 
             # Compute Grad-CAM
-            attributions = grad_cam.attribute(input_tensor, target=None)  # shape: [1, n_channels, H, W]
-            cam = attributions.squeeze(0).sum(dim=0)  # shape: [H, W]
+            attributions = grad_cam.attribute(input_tensor, target=None)
+            cam = attributions.squeeze(0).sum(dim=0)
             token_importance = cam.sum(dim=1).detach().cpu().numpy()
 
             max_seq_len = max(max_seq_len, token_importance.shape[0])
@@ -47,7 +47,7 @@ def calculate_grad_cam_all_layers(model, test_loader, filter_sizes: List[int], s
 
     for idx, size in enumerate(filter_sizes):
         conv_layer = model.convs[idx]
-        save_path = save_dir / f"gardcam_filter_{size}.npy"
+        save_path = save_dir / f"gradcam_filter_{size}.npy"
         print(f"Computing Grad-CAM for filter size {size}")
         cam=calculate_grad_cam(model, test_loader, conv_layer=conv_layer, device=device, save_path=save_path)
         print(f"Saved: {save_path}")

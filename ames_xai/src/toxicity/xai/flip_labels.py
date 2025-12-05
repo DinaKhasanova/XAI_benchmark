@@ -1,7 +1,7 @@
 import random
 import pandas as pd
 
-def flip_labels(df, label_column='label', flip_fraction=0.2, seed=42):
+def flip_labels(df, label_column='label', flip_fraction=0.4, seed=42):
     random.seed(seed)
     all_indices = df.index.tolist()
     num_to_flip = int(len(all_indices) * flip_fraction)
@@ -12,8 +12,8 @@ def flip_labels(df, label_column='label', flip_fraction=0.2, seed=42):
 
     return df_flipped
 
-smiles_path = "/home/dina/molprivacy/src/moreno/data_dir/test.csv"
-output_path = "/home/dina/molprivacy/src/moreno/data_dir/test_label.csv"
+smiles_path = "/data_dir/train.csv"
+output_path = "/data_dir/train_40.csv"
 
 df_test = pd.read_csv(smiles_path)
 

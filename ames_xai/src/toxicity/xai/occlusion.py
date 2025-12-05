@@ -10,7 +10,7 @@ def calculate_occlusion(model, test_loader, num_classes=2, device="cuda", save_p
 
     first_batch = next(iter(test_loader))
     input_sample = first_batch[0].to(device)
-    input_shape = input_sample.shape  # [B, T, D] or [B, T]
+    input_shape = input_sample.shape 
 
     if len(input_shape) == 2:
         sliding_window_shapes = (1,)

@@ -3,6 +3,52 @@ import numpy as np
 import pandas as pd
 from scipy.spatial.distance import cosine
 
+from pathlib import Path
+import numpy as np
+import os
+def combine_all_gradcams(gradcam_dir, filter_sizes=None):
+    """
+    Combine per-filter Grad-CAM arrays into a single token-level attribution using the window approach.
+    Expects files named 'gardcam_filter_{i}.npy' inside gradcam_dir for i in filter_sizes.
+    Returns: np.ndarray of shape (n_rows, max_len) with averaged token-level scores.
+    """
+    gradcam_dir = Path(gradcam_dir)
+    if filter_sizes is None:
+        filter_sizes = list(range(1, 21))  # default filters 1..20
+
+    # Load all existing filter files
+    loaded = []
+    for i, k in enumerate(filter_sizes, start=1):
+        fp = gradcam_dir / f"gardcam_filter_{i}.npy"
+        if not fp.exists():
+            continue
+        cam = np.load(fp)  # shape: (n_rows, L_k)
+        loaded.append((k, cam))
+
+    if not loaded:
+        raise FileNotFoundError(f"No Grad-CAM filter files found in {gradcam_dir}")
+
+    n_rows = loaded[0][1].shape[0]
+    max_len = max(arr.shape[1] + k - 1 for (k, arr) in loaded)
+
+    combined = np.zeros((n_rows, max_len), dtype=np.float32)
+    counts   = np.zeros((n_rows, max_len), dtype=np.float32)
+
+    for (k, cam) in loaded:
+        L_k = cam.shape[1]
+        for j in range(L_k):
+            start = j
+            end   = j + k
+            contrib = cam[:, j][:, None] / float(k)
+            combined[:, start:end] += contrib
+            counts[:,   start:end] += 1.0
+
+    counts[counts == 0] = 1.0
+    combined /= counts
+    return combined
+
+
+
 def calculate_token_importance(attribution):
     if attribution.ndim == 2:
         return attribution.mean(axis=1)
@@ -72,8 +118,11 @@ if __name__ == "__main__":
     shap = np.load("/home/dina/ames_xai/src/toxicity/model/shap.npy")
     deeplift = np.load("/home/dina/ames_xai/src/toxicity/model/deeplift.npy")
     occlusion = np.load("/home/dina/ames_xai/src/toxicity/model/occlusion.npy")
-    gradcam = np.load("/home/dina/ames_xai/src/toxicity/model/gradcams/gardcam_filter_1.npy")
-
+    gradcam = combine_all_gradcams("/home/dina/ames_xai/src/toxicity/model/gradcams", filter_sizes=list(range(1,21)))
+    combined_gradcam_path = "/home/dina/ames_xai/src/toxicity/model/gradcam_combined.npy"
+    os.makedirs(os.path.dirname(combined_gradcam_path), exist_ok=True)
+    np.save(combined_gradcam_path, gradcam)
+    print(f"Saved combined Grad-CAM to {combined_gradcam_path} with shape {gradcam.shape}")
     mask_positive = toxicity == 1
 
     results_all = compute_all_cosine_distances_with_gradcam(
@@ -100,5 +149,5 @@ if __name__ == "__main__":
         }
         summary.append(row)
 
-    pd.DataFrame(summary).to_csv("/home/dina/ames_xai/src/toxicity/model/xai_distances_summary.csv", index=False)
-    print("Saved to xai_distances_summary.csv")
+    pd.DataFrame(summary).to_csv("/home/dina/ames_xai/src/toxicity/model/xai_distances_summary_all.csv", index=False)
+    print("Saved to xai_distances_summary_all.csv")

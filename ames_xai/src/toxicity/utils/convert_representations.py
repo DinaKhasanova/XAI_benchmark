@@ -1,7 +1,7 @@
 from torch.utils.data import TensorDataset
 from typing import Tuple
 from toxicity.data_modules.datasets_and_collate_functions import GraphDataset, CNNDataset
-from moreno_encoders.utils.encodings import (
+from transformer.utils.encodings import (
     generate_vector_encodings,
     generate_matrix_encodings,
 )
