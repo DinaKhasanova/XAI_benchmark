@@ -33,14 +33,6 @@ The project can be run from the terminal by executing the main Python script:
 $ python main.py install-model transformer_matrix #train the transformer
 $ python main.py #train and test CNN
 ```
-
-### Command line interface
-You can run the privacy test directly from the command line using the `privacytest` command after installing the package.
-
-```
-$ privacytest --representation REPRESENTATION --result_folder RESULT_FOLDER [options]
-```
-
 #### Optional Arguments
 `--dataset`: Specifies the dataset to use. Choices are:
 - `ames` (default)
