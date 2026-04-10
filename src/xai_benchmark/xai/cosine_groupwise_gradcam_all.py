@@ -151,22 +151,22 @@ def compute_all_cosine_distances_with_gradcam(
 
 
 def main():
-    test_csv_path = "/home/dina/xai_methods/src/xai_benchmark/data_dir/test.csv"
+    test_csv_path = "../data_dir/test.csv"
     dataframe = pd.read_csv(test_csv_path)
     smiles_list = dataframe["smiles"].tolist()
     label_matrix = dataframe.iloc[:, 1:].values
     group_names = list(dataframe.columns[1:])
 
-    ig_values = np.load("/home/dina/xai_methods/src/xai_benchmark/model/ig.npy")
-    shap_values = np.load("/home/dina/xai_methods/src/xai_benchmark/model/shap.npy")
-    deeplift_values = np.load("/home/dina/xai_methods/src/xai_benchmark/model/deeplift.npy")
-    occlusion_values = np.load("/home/dina/xai_methods/src/xai_benchmark/model/occlusion.npy")
-    #gradcam_values = np.load("/home/dina/xai_methods/src/xai_benchmark/model/gradcams/gardcam_filter_20.npy")
+    ig_values = np.load("../model/ig.npy")
+    shap_values = np.load("../model/shap.npy")
+    deeplift_values = np.load("../model/deeplift.npy")
+    occlusion_values = np.load("../model/occlusion.npy")
+    #gradcam_values = np.load("../model/gradcams/gardcam_filter_20.npy")
 
-    gradcam_dir = "/home/dina/xai_methods/src/xai_benchmark/model/gradcams"
+    gradcam_dir = "../model/gradcams"
     gradcam_values = combine_all_gradcams(gradcam_dir)   # (n_mols * n_groups, max_len)
 
-    np.save("/home/dina/xai_methods/src/xai_benchmark/model/combined_gradcam.npy", gradcam_values)
+    np.save("../model/combined_gradcam.npy", gradcam_values)
 
     df = compute_all_cosine_distances_with_gradcam(
         ig_values, shap_values, deeplift_values, occlusion_values, gradcam_values,
@@ -174,7 +174,7 @@ def main():
     )
 
     # Save to CSV
-    out_csv = "/home/dina/xai_methods/src/xai_benchmark/results/cosine_final.csv"
+    out_csv = "../results/cosine_final.csv"
     df.to_csv(out_csv, index=True)
     print(f"Saved results to: {out_csv}")
 

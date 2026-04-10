@@ -64,16 +64,16 @@ def compute_all_cosine_distances_with_gradcam(
     return cosine_distances
 
 def main():
-    test_csv_path = "/home/dina/xai_methods/src/xai_benchmark/data_dir/test.csv"
+    test_csv_path = "../data_dir/test.csv"
     dataframe = pd.read_csv(test_csv_path)
     smiles_list = dataframe["smiles"].tolist()
     label_matrix = dataframe.iloc[:, 1:].values
 
-    ig_values = np.load("/home/dina/xai_methods/src/xai_benchmark/model/ig.npy")
-    shap_values = np.load("/home/dina/xai_methods/src/xai_benchmark/model/shap.npy")
-    deeplift_values = np.load("/home/dina/xai_methods/src/xai_benchmark/model/deeplift.npy")
-    occlusion_values = np.load("/home/dina/xai_methods/src/xai_benchmark/model/occlusion.npy")
-    gradcam_values = np.load("/home/dina/xai_methods/src/xai_benchmark/model/gradcams/gardcam_filter_20.npy")
+    ig_values = np.load("../model/ig.npy")
+    shap_values = np.load("../model/shap.npy")
+    deeplift_values = np.load("../model/deeplift.npy")
+    occlusion_values = np.load("../model/occlusion.npy")
+    gradcam_values = np.load("../model/gradcams/gardcam_filter_20.npy")
 
     results = compute_all_cosine_distances_with_gradcam(
         ig_values, shap_values, deeplift_values, occlusion_values,

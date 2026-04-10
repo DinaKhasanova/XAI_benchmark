@@ -69,19 +69,19 @@ def compute_all_cosine_distances_with_gradcam(ig, shap, deeplift, occlusion, gra
 
 if __name__ == "__main__":
     # Replace with actual paths
-    test_csv = "/home/dina/molprivacy/src/moreno/data_dir/test.csv"
+    test_csv = "../data_dir/test.csv"
     smiles = pd.read_csv(test_csv)["smiles"].tolist()
 
-    ig = np.load("/home/dina/molprivacy/src/moreno/model/ig.npy")
+    ig = np.load("../model/ig.npy")
     import pickle
-    shap_path = "/home/dina/molprivacy/src/moreno/model/shap.npy"
+    shap_path = "../model/shap.npy"
     shap_data = np.load(shap_path, allow_pickle=True)
     pickled_data = shap_data["shap/data.pkl"]
     shap = pickle.loads(pickled_data)
     shap = shap.reshape(shap.shape[0], shap.shape[1], shap.shape[2])
-    deeplift = np.load("/home/dina/molprivacy/src/moreno/model/deeplift.npy")
-    occlusion = np.load("/home/dina/molprivacy/src/moreno/model/occlusion.npy")
-    gradcam = np.load("/home/dina/molprivacy/src/moreno/model/gradcam_token_attributions.npy")
+    deeplift = np.load("../model/deeplift.npy")
+    occlusion = np.load("../model/occlusion.npy")
+    gradcam = np.load("../model/gradcam_token_attributions.npy")
 
     results = compute_all_cosine_distances_with_gradcam(ig, shap, deeplift, occlusion, gradcam, smiles)
 

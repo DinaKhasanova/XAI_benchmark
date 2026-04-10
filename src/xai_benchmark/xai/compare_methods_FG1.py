@@ -98,11 +98,11 @@ def one_fg(ig, shap, deeplift, occlusion, smiles):
     )
 
 def main():
-    ig_path = "/home/dina/molprivacy/src/moreno/model/ig.npy"
-    shap_path = "/home/dina/molprivacy/src/moreno/model/shap.npy"
-    smiles_path = "/home/dina/molprivacy/src/moreno/data_dir/test.csv"
-    deeplift_path = "/home/dina/molprivacy/src/moreno/model/deeplift.npy"
-    occlusion_path = "/home/dina/molprivacy/src/moreno/model/occlusion.npy"
+    ig_path = "../model/ig.npy"
+    shap_path = "../model/shap.npy"
+    smiles_path = "../data_dir/test.csv"
+    deeplift_path = "../model/deeplift.npy"
+    occlusion_path = "../model/occlusion.npy"
     ig, shap, deeplift, occlusion, smiles = load_data(ig_path, shap_path, deeplift_path, occlusion_path, smiles_path)
     ig, shap, deeplift, occlusion, smiles = one_fg(ig, shap, deeplift, occlusion, smiles)
     distances = compute_all_cosine_distances(ig, shap, deeplift, occlusion, smiles)
