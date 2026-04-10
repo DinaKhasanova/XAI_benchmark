@@ -40,8 +40,7 @@ $ python main.py #train and test CNN
 
 `--dataset_path`: Path(s) to your custom dataset file(s). Required if `--dataset file` is selected. The dataset must have a 'smiles' column and a binary 'label' column.
 
-`--split`: Split ratios for training, validation, and testing datasets. Provide three float values that sum to 1.0. Testing dataset will be used for privacy assessment.
-Default: `0.45 0.1 0.45`
+`--split`: Split ratios for training, validation, and testing datasets. Provide three float values that sum to 1.0. Default: `0.7 0.1 0.2`
 
 `--hyperparameter_optimization_time`: Time in seconds allocated for hyperparameter optimization during model training.
 Default: `600`

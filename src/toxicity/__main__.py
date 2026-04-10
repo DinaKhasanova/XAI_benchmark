@@ -10,7 +10,7 @@ import toxicity.custom_representation
 
 def main(
     task: Literal["train", "download"],
-    dataset: Literal["ames", "file"] = "ames",
+    dataset: Literal["ames", "file"] = "file",
     split: Optional[List[float]] = None,
     representations: Optional[
         List[
@@ -165,5 +165,5 @@ if __name__ == "__main__":
         dataset="file",
         representations=["transformer_matrix"],
         hyperparameter_optimization_time=600,
-        dataset_path=["/data/ames_clean.csv"]
+        dataset_path=["data/bbb.csv"]
 )

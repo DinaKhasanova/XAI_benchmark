@@ -9,7 +9,7 @@ import os
 def combine_all_gradcams(gradcam_dir, filter_sizes=None):
     """
     Combine per-filter Grad-CAM arrays into a single token-level attribution using the window approach.
-    Expects files named 'gardcam_filter_{i}.npy' inside gradcam_dir for i in filter_sizes.
+    Expects files named 'gradcam_filter_{i}.npy' inside gradcam_dir for i in filter_sizes.
     Returns: np.ndarray of shape (n_rows, max_len) with averaged token-level scores.
     """
     gradcam_dir = Path(gradcam_dir)
@@ -19,7 +19,7 @@ def combine_all_gradcams(gradcam_dir, filter_sizes=None):
     # Load all existing filter files
     loaded = []
     for i, k in enumerate(filter_sizes, start=1):
-        fp = gradcam_dir / f"gardcam_filter_{i}.npy"
+        fp = gradcam_dir / f"gradcam_filter_{i}.npy"
         if not fp.exists():
             continue
         cam = np.load(fp)  # shape: (n_rows, L_k)
@@ -110,16 +110,16 @@ def compute_all_cosine_distances_with_gradcam(ig, shap, deeplift, occlusion, gra
     return distances
 
 if __name__ == "__main__":
-    df = pd.read_csv("/home/dina/ames_xai/src/toxicity/data_dir/test.csv")
+    df = pd.read_csv("../data_dir/test.csv")
     smiles = df["smiles"].tolist()
     toxicity = df["label"].values
 
-    ig = np.load("/home/dina/ames_xai/src/toxicity/model/ig.npy")
-    shap = np.load("/home/dina/ames_xai/src/toxicity/model/shap.npy")
-    deeplift = np.load("/home/dina/ames_xai/src/toxicity/model/deeplift.npy")
-    occlusion = np.load("/home/dina/ames_xai/src/toxicity/model/occlusion.npy")
-    gradcam = combine_all_gradcams("/home/dina/ames_xai/src/toxicity/model/gradcams", filter_sizes=list(range(1,21)))
-    combined_gradcam_path = "/home/dina/ames_xai/src/toxicity/model/gradcam_combined.npy"
+    ig = np.load("../model/ig.npy")
+    shap = np.load("../model/shap.npy")
+    deeplift = np.load("../model/deeplift.npy")
+    occlusion = np.load("../model/occlusion.npy")
+    gradcam = combine_all_gradcams("../model/gradcams", filter_sizes=list(range(1,21)))
+    combined_gradcam_path = "../model/gradcam_combined.npy"
     os.makedirs(os.path.dirname(combined_gradcam_path), exist_ok=True)
     np.save(combined_gradcam_path, gradcam)
     print(f"Saved combined Grad-CAM to {combined_gradcam_path} with shape {gradcam.shape}")
@@ -149,5 +149,5 @@ if __name__ == "__main__":
         }
         summary.append(row)
 
-    pd.DataFrame(summary).to_csv("/home/dina/ames_xai/src/toxicity/model/xai_distances_summary_all.csv", index=False)
+    pd.DataFrame(summary).to_csv("../model/xai_distances_summary_all.csv", index=False)
     print("Saved to xai_distances_summary_all.csv")

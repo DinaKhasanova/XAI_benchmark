@@ -1,0 +1,11 @@
+method,positive_1,all_labels
+shap_vs_ig,0.0002 ± 0.0025,0.0002 ± 0.0023
+shap_vs_deeplift,0.0010 ± 0.0029,0.0008 ± 0.0027
+shap_vs_occlusion,0.0124 ± 0.0098,0.0115 ± 0.0094
+shap_vs_gradcam,0.1808 ± 0.0840,0.1731 ± 0.0802
+ig_vs_deeplift,0.0007 ± 0.0012,0.0006 ± 0.0011
+ig_vs_occlusion,0.0121 ± 0.0095,0.0113 ± 0.0092
+ig_vs_gradcam,0.1811 ± 0.0840,0.1734 ± 0.0802
+deeplift_vs_occlusion,0.0121 ± 0.0093,0.0113 ± 0.0090
+deeplift_vs_gradcam,0.1778 ± 0.0820,0.1705 ± 0.0782
+occlusion_vs_gradcam,0.1834 ± 0.0800,0.1765 ± 0.0767

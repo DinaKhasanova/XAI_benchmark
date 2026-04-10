@@ -1,0 +1,10 @@
+smarts_patterns = {'halide': '[CX4,CX3,c;!$([#6]=[OX1])][F,Cl,Br,I]',
+                    'amine': '[NX3]([#1,#6&!$([CX3]=[O,S,N,C])&!$([#6]([NX3])[N,O,S,P])&!$(C([NX3])#N)])([#1,#6&!$([CX3]=[O,S,N,C])&!$([#6]([NX3])[N,O,S,P])&!$(C([NX3])#N)])[#1,#6&!$([CX3]=[O,S,N,C])&!$([#6]([NX3])[N,O,S,P])&!$(C([NX3])#N)]', 
+                    'carboxylic_esters': ' [#1,#6][CX3](=[OX1])[OX2][#6&!$([CX3]=[OX1,SX1,NX2])]',
+                    'ketone': '[#6&!$(C#N)][CX3](=[OX1])[#6&!$(C#N)]',  
+                    'ether': ' [#6&!$([CX4]([OX2])([#7,O,S,F,Cl,Br,I,P]))&!$([CX3]([OX2])=[OX1,SX1,NX2,C])][OX2][#6&!$([CX4]([OX2])([#7,O,S,F,Cl,Br,I,P]))&!$([CX3]([OX2])=[OX1,SX1,NX2,C])]',
+                    'carboxylic_acid': '[#1,#6][CX3](=[OX1])[OX2H1]',
+                    'arene': 'c1ccccc1',
+                    'carboxylic_amides': '[#1,#6][CX3](=[OX1])[NX3]([#1,#6&!$([CX3]=[OX1,SX1,NX1])])[#1,#6&!$([CX3]=[OX1,SX1,NX1])]',
+                    'nitro': '[#6&!$([CX3]=[OX1,SX1])][$([NX3](=[OX1])=[OX1]),$([NX3+](=[OX1])[O-])]',
+                    'hydroxyl':  '[#6&!$([CX4]([OH1])[#8,#16,#7,#15])&!$([CX3]([OH1])=[OX1,SX1,NH2,C])][OH1]'}
